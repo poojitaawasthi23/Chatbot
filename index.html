@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tailwind CSS Starter</title>
+        <link rel="stylesheet" <link href=
+        "https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+                    rel="stylesheet"/>
+        <link rel="chatbot.js"/>
+    
+    </head>
+
+    <body class="antialiased bg-gray-400">
+        <div class="flex justify-center pt-14">
+            <div class="bg-gray-400 w-64 h-auto  shadow-xl border-8 border-white"
+                style="height: 31rem; position: fixed; bottom: 0; right: 0;">
+                <div class="bg-gradient-to-r from-indigo-700 to-indigo-700 w-full h-16 rounded-b-md">
+                    
+                    <div class="flex justify-between h-12 items-center px-3">
+                        <div class="flex items-center">
+                 
+                    <svg 
+                         xmlns="http://www.w3.org/2000/svg" 
+                         viewBox="0 0 20 20" 
+                         fill="currentColor"
+                         class="text-white h-3">
+                         <path 
+                         fillRule="evenodd" 
+                         d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" 
+                         clipRule="evenodd" />
+                      </svg>
+                      <img 
+                      src="Image/avatar.jpg" 
+                      class="h-8 w-8 rounded-full border-white"
+                      alt=""
+                   />
+                        <div class="pl-1">
+                            <p class="text-sm text-white font-bold">Samuel Green</p>
+                            <p 
+                               class="text-xs text-white opacity-60" 
+                               style="font-size: 0.5rem"
+                            >
+                               Online
+                         
+                         </p>
+
+                        </div>
+                     </div>
+
+            <div>
+                <style>
+                    .icon {
+                      transition: filter 0.2s ease-in-out;
+                    }
+                  
+                    .icon:hover {
+                      filter: grayscale(100%);
+                      background-color: #ccc;
+                    }
+                  </style>
+                  
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 icon text-white" 
+                    viewBox="0 0 20 20" 
+                    fill="currentColor">
+                    <path 
+                      d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                  </svg>
+            </div>
+
+        </div>
+                </div>
+                <div class="flex flex-col space-y-2 p-2">
+                    <div 
+                        class=" bg-indigo-100 w-32 p-2 text-indigo-900 text-xs rounded-md rounded-bl-none"
+                    >
+                        Hi, I'm Traivisbot.
+                    </div>
+                    <div 
+                        class=" bg-indigo-100 w-32 p-2 text-indigo-900 text-xs rounded-md rounded-bl-none"
+                    >
+                        How can I help you.
+                    </div>
+                    <div class="flex space-x-3self-end">
+                    </div>
+                    <div class=" bg-indigo-100 w-32 p-2 text-indigo-900 text-xs rounded-md rounded-br-none self-end shadow-md">
+                         Name the available courses
+                    </div>
+                    <div 
+                        class=" bg-indigo-100 w-32 p-2 text-indigo-900 text-xs rounded-md rounded-bl-none"
+                    >
+                        Data Structure, Database Managment System and Computer Networking
+                    </div>
+                    <div class=" bg-indigo-100 w-32 p-2 text-indigo-900 text-xs rounded-md rounded-br-none self-end shadow-md">
+                        Thanks for the help
+                   </div>
+                   <div 
+                    
+                        class=" bg-indigo-100 w-32 p-2 text-indigo-900 text-xs rounded-md rounded-bl-none"
+                    >
+                        You're welcome, See you soon;)
+                    </div>
+                    <div class="bg-white flex justify-between items-center p-1 rounded-xl w-full h-8 text-gray-400 shadow-sm text-xs text-left"
+                    >
+                    <input type="text" id="chatbot-input" class="border-gray-300 rounded-lg w-full py-1 px-3" placeholder="Type your message ...">
+                    <button type="submit" class="bg-indigo-700 hover:bg-indigo-400 text-white font-bold py-1 px-4 rounded-xl mt-0">Send</button>
+                </div>
+                </div>
+                
+
+
+
+                           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const chat = document.getElementById('chat');
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('user-message');
+  
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+  
+          const message = input.value;
+  
+          const response = await fetch('/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({message: message})
+          });
+  
+          const data = await response.json();
+  
+          const messageElem = document.createElement('div');
+          messageElem.innerHTML = `
+            <div class="mb-2"><strong>You:</strong> ${message}</div>
+            <div><strong>Bot:</strong> ${data.response}</div>
+          `;
+          chat.appendChild(messageElem);
+  
+          input.value = '';
+    </script>
+</html>
