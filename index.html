@@ -7,6 +7,7 @@
         <link rel="stylesheet" <link href=
         "https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
                     rel="stylesheet"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
         <link rel="chatbot.js"/>
     
     </head>
@@ -31,7 +32,7 @@
                          clipRule="evenodd" />
                       </svg>
                       <img 
-                      src="Image/avatar.jpg" 
+                      src="/Users/poojitasagarawasthi/Desktop/TRAIVISBot/templates/avatar.jpg" 
                       class="h-8 w-8 rounded-full border-white"
                       alt=""
                    />
@@ -119,32 +120,23 @@
         </div>
     </body>
     <script>
-        const chat = document.getElementById('chat');
-        const form = document.getElementById('chat-form');
-        const input = document.getElementById('user-message');
-  
-        form.addEventListener('submit', async (event) => {
-          event.preventDefault();
-  
-          const message = input.value;
-  
-          const response = await fetch('/chat', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({message: message})
-          });
-  
-          const data = await response.json();
-  
-          const messageElem = document.createElement('div');
-          messageElem.innerHTML = `
-            <div class="mb-2"><strong>You:</strong> ${message}</div>
-            <div><strong>Bot:</strong> ${data.response}</div>
-          `;
-          chat.appendChild(messageElem);
-  
-          input.value = '';
+        function sendUserMessage() {
+            var userInput = document.getElementById("user-input").value;
+            var chatbotBody = document.getElementById("chatbot");
+            var chatbotMessage = '<p class="message">' + userInput + '</p>';
+            chatbotBody.innerHTML += chatbotMessage;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = this.responseText;
+                    chatbotMessage = '<p class="message">' + response + '</p>';
+                    chatbotBody.innerHTML += chatbotMessage;
+                }
+            };
+            xhttp.open("GET", "/get?msg=" + userInput, true);
+            xhttp.send();
+            document.getElementById("user-input").value = "";
+        }
+        document.getElementById("send-btn").addEventListener("click", sendUserMessage);
     </script>
-</html>
+    
